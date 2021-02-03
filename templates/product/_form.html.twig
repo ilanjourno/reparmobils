@@ -1,4 +1,16 @@
 {{ form_start(form) }}
+    <div class="row">
+        <div class="col form-group">
+            <h4>Choisir une catégorie d'appareil <span class="text-danger">*</span></h4>
+            <div class="ui category search" id="findCategory">
+                <div class="ui icon input w-100">
+                  <input class="prompt form-control" type="text" placeholder="Rechercher une catégorie...">
+                  <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+            </div>
+        </div>
+    </div>
     {{ form_widget(form) }}
     <hr>
     <div class="row">
@@ -15,3 +27,24 @@
    
     <button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>
 {{ form_end(form) }}
+<script>
+
+    fetch('/api/electronics/category')
+    .then(data => data.json())
+    .then(data => {
+        $("#findCategory").search({
+            source: data,
+            minCharacters: 0,
+            onSelect: (result, response) => callElectronics(result)
+        });
+    });
+
+    const callElectronics = category => {
+        fetch('/api/electronics')
+        .then(data => data.json())
+        .then(data => {
+
+        });
+    }
+    
+</script>

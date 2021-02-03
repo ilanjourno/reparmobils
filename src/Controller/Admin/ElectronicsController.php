@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Electronic;
 use App\Form\ElectronicType;
 use App\Repository\ElectronicRepository;
+use App\Entity\ElectronicCategory;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
@@ -13,14 +14,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
-/**
- * @Route("/admin/electronics")
- */
 class ElectronicsController extends AbstractController
 {
     /**
-     * @Route("/", name="electronics_index", methods={"GET", "POST"})
+     * @Route("/admin/electronics/", name="electronics_index", methods={"GET", "POST"})
      */
     public function index(Request $request, ElectronicRepository $ElectronicsRepository, DataTableFactory $dataTableFactory): Response
     {
@@ -61,7 +64,19 @@ class ElectronicsController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="electronics_new", methods={"GET","POST"})
+     * @Route("/api/electronics/{id}", name="api_electronics_index", methods={"GET"})
+     */
+    public function apiIndex(Request $request, ElectronicCategory $category, SerializerInterface $serializer, NormalizerInterface $normalizerInterface)
+    {
+        $data = $normalizerInterface->normalize($category->getElectronics());
+        dd($data);
+        $response = new Response($serializer->serialize($category->getElectronics(), 'json', ['groups' => 'API']));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/admin/electronics/new", name="electronics_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -84,7 +99,7 @@ class ElectronicsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="electronics_show", methods={"GET"})
+     * @Route("/admin/electronics/{id}", name="electronics_show", methods={"GET"})
      */
     public function show(Electronic $electronics): Response
     {
@@ -94,11 +109,11 @@ class ElectronicsController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="electronics_edit", methods={"GET","POST"})
+     * @Route("/admin/electronics/{id}/edit", name="electronics_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Electronic $electronics): Response
     {
-        $form = $this->createForm(ElectronicsType::class, $electronics);
+        $form = $this->createForm(ElectronicType::class, $electronics);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -107,14 +122,14 @@ class ElectronicsController extends AbstractController
             return $this->redirectToRoute('electronics_index');
         }
 
-        return $this->render('admin/electronics/edit.html.twig', [
-            'electronics' => $electronics,
+        return $this->render('admin/electronic/edit.html.twig', [
+            'electronic' => $electronics,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="electronic_delete", methods={"DELETE"})
+     * @Route("/admin/electronics/{id}", name="electronic_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Electronic $electronics): Response
     {

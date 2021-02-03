@@ -6,7 +6,14 @@
     <a href="{{ path('product_index') }}" class="btn btn-primary">Retour</a>
 {% endblock %}
 {% block body %}
-
     {{ include('product/_form.html.twig') }}
-
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $("#product_electronics").dropdown({
+            onChange: () => {
+                
+            }
+        })
+    </script>
 {% endblock %}

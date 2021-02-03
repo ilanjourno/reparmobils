@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ElectronicCategoryRepository;
 use DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,11 +20,13 @@ class ElectronicCategory
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"API"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"API"})
      */
     private $name;
 
@@ -35,6 +39,17 @@ class ElectronicCategory
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updated_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Electronic::class, mappedBy="category")
+     * @Groups({"API"})
+     */
+    private $electronics;
+
+    public function __construct()
+    {
+        $this->electronics = new ArrayCollection();
+    }
 
 
     public function __toString()
@@ -95,6 +110,36 @@ class ElectronicCategory
     public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Electronic[]
+     */
+    public function getElectronics(): Collection
+    {
+        return $this->electronics;
+    }
+
+    public function addElectronic(Electronic $electronic): self
+    {
+        if (!$this->electronics->contains($electronic)) {
+            $this->electronics[] = $electronic;
+            $electronic->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeElectronic(Electronic $electronic): self
+    {
+        if ($this->electronics->removeElement($electronic)) {
+            // set the owning side to null (unless already changed)
+            if ($electronic->getCategory() === $this) {
+                $electronic->setCategory(null);
+            }
+        }
 
         return $this;
     }

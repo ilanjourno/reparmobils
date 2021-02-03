@@ -1,0 +1,15 @@
+{% extends 'admin/base.html.twig' %}
+
+{% set title = "Modifier une catégorie d'appareil" %}
+{% block header %}
+    <div class="row justify-content-end">
+        <a href="{{ path('electronic_category_index') }}" class="btn btn-primary">Retour</a>
+
+        {{ include('electronic_category/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
+{% block body %}
+
+    {{ include('electronic_category/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+{% endblock %}

@@ -7879,7 +7879,7 @@ i.small.icons {
 
 i.icon,
 i.icons {
-  font-size: 1em;
+  font-size: 1em !important;
 }
 
 i.large.icon,

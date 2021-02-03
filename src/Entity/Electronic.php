@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ElectronicRepository;
 use DateTime;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,11 +19,13 @@ class Electronic
      * @ORM\Id
      * @ORM\GeneratedValue²
      * @ORM\Column(type="integer")
+     * @Groups({"API"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"API"})
      */
     private $name;
 
@@ -38,6 +41,7 @@ class Electronic
 
     /**
      * @ORM\ManyToOne(targetEntity=Mark::class, inversedBy="electronics")
+     * @Groups({"API"})
      */
     private $mark;
 
@@ -50,6 +54,11 @@ class Electronic
      * @ORM\OneToMany(targetEntity=ElectronicParams::class, mappedBy="electronic")
      */
     private $params;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ElectronicCategory::class, inversedBy="electronics")
+     */
+    private $category;
 
 
     public function __toString()
@@ -185,6 +194,18 @@ class Electronic
                 $param->setElectronic(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?ElectronicCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?ElectronicCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

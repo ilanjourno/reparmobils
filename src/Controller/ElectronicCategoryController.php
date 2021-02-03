@@ -13,14 +13,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
-/**
- * @Route("/admin/electronic/category")
- */
 class ElectronicCategoryController extends AbstractController
 {
     /**
-     * @Route("/", name="electronic_category_index", methods={"GET", "POST"})
+     * @Route("/admin/electronic/category", name="electronic_category_index", methods={"GET", "POST"})
      */
     public function index(Request $request, ElectronicCategoryRepository $electronicCategoryRepository, DataTableFactory $dataTableFactory): Response
     {
@@ -33,18 +31,18 @@ class ElectronicCategoryController extends AbstractController
                 return $context->getId();
             }, 
             'render' => function($value, $context){
-                $show = sprintf('<a href="%s" class="btn btn-primary">Regarder</a>', $this->generateUrl('product_category_show', ['id' => $value]));
-                $edit = sprintf('<a href="%s" class="btn btn-primary">Modifier</a>', $this->generateUrl('product_category_edit', ['id' => $value]));
+                $show = sprintf('<a href="%s" class="btn btn-primary">Regarder</a>', $this->generateUrl('electronic_category_show', ['id' => $value]));
+                $edit = sprintf('<a href="%s" class="btn btn-primary">Modifier</a>', $this->generateUrl('electronic_category_edit', ['id' => $value]));
                 return $show.$edit;
             }, 
             'label' => 'Actions',
         ])
         ->createAdapter(ORMAdapter::class, [
-            'entity' => ProductCategory::class,
+            'entity' => ElectronicCategory::class,
             'query' => function (QueryBuilder $builder) {
                 return $builder
                     ->select('e')
-                    ->from(ProductCategory::class, 'e')
+                    ->from(ElectronicCategory::class, 'e')
                 ;
             },
         ])->handleRequest($request);
@@ -59,12 +57,21 @@ class ElectronicCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="electronic_category_new", methods={"GET","POST"})
+     * @Route("/api/electronics/category", name="api_electronic_category_index", methods={"GET"})
+    */
+    public function apiIndex(Request $request, ElectronicCategoryRepository $repository, SerializerInterface $serializer){
+        $response = new Response($serializer->serialize($repository->findAllApi(), 'json', ['groups' => 'API']));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/admin/electronic/category/new", name="electronic_category_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
         $electronicCategory = new ElectronicCategory();
-        $form = $this->createForm(ProductCategoryType::class, $electronicCategory);
+        $form = $this->createForm(ElectronicCategoryType::class, $electronicCategory);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,7 +89,7 @@ class ElectronicCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="electronic_category_show", methods={"GET"})
+     * @Route("/admin/electronic/category/{id}", name="electronic_category_show", methods={"GET"})
      */
     public function show(ElectronicCategory $electronicCategory): Response
     {
@@ -92,7 +99,7 @@ class ElectronicCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="electronic_category_edit", methods={"GET","POST"})
+     * @Route("/admin/electronic/category/{id}/edit", name="electronic_category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, ElectronicCategory $electronicCategory): Response
     {
@@ -112,7 +119,7 @@ class ElectronicCategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="electronic_category_delete", methods={"DELETE"})
+     * @Route("/admin/electronic/category/{id}", name="electronic_category_delete", methods={"DELETE"})
      */
     public function delete(Request $request, ElectronicCategory $electronicCategory): Response
     {

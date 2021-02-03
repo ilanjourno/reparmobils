@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Electronic;
 use App\Entity\Product;
+use App\Entity\ElectronicCategory;
+use App\Repository\ElectronicRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -21,9 +23,14 @@ class ProductType extends AbstractType
             ->add('electronics', EntityType::class, [
                 'class' => Electronic::class,
                 'multiple' => true,
+                'query_builder' => function(ElectronicRepository $respository){
+                    return $respository->createQueryBuilder('e')
+                    ->where('e.id = :val')->setParameter('val', '0');
+                },
                 'label' => 'Appareils <span class="text-danger">*</span>',
                 'label_html' => true,
-                'attr' => ['class' => 'ui fluid search dropdown']
+                'attr' => ['class' => 'ui fluid search dropdown'],
+                'required' => true
             ])
             ->add('name', TextType::class, [
                 'label' => 'Nom <span class="text-danger">*</span> :',

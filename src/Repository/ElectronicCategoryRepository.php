@@ -16,7 +16,13 @@ class ElectronicCategoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ProductCategory::class);
+        parent::__construct($registry, ElectronicCategory::class);
+    }
+
+    public function findAllApi(){
+        return $this->createQueryBuilder('e')
+        ->select('e.name as title')
+        ->getQuery()->getResult();
     }
 
     // /**
