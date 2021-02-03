@@ -1,0 +1,17 @@
+{% extends 'admin/base.html.twig' %}
+
+{% set title = "Ajouter un paramètre d'appareil" %}
+{% set require = true %}
+{% block header %}
+    <a href="{{ path('electronic_params_index', {electronic: electronic.id}) }}" class="btn btn-primary">Retour</a>
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Nom de l'appareil :</h4>
+            <p class="form-control">{{electronic.name}}</p>
+        </div>
+    </div>
+    {{ include('electronic_params/_form.html.twig') }}
+
+{% endblock %}

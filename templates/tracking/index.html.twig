@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TrackingController!{% endblock %}
+{% set banner = {url: "tracking", title: "Tracking"} %}
+{% block body %}
+    <section class="tracking_box_area section_gap">
+        <div class="container">
+            <div class="tracking_box_inner">
+                <p>Pour suivre votre commande, veuillez entrer votre ID de commande dans la case ci-dessous et appuyez sur le bouton «Suivre». Cela vous a été remis sur votre reçu et dans l'e-mail de confirmation que vous auriez dû recevoir.</p>
+                <form class="row tracking_form" action="#" method="post" novalidate="novalidate">
+                    <div class="col-md-12 form-group">
+                        <input type="text" class="form-control" id="order" name="order" placeholder="Numéro de commande" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Numéro de commande'">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Adresse e-mail de facturation" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adresse e-mail de facturation'">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <button type="submit" value="submit" class="primary-btn">Suivi de commande</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

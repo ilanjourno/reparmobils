@@ -1,0 +1,7 @@
+{% extends 'admin/base.html.twig' %}
+{% set title = "Les paramètres d'appareil" %}
+{% set table = true %}
+{% block header %}
+    <a href="{{ path('electronic_params_new', {electronic: electronic_id}) }}" class="btn btn-primary">Ajouter un paramètre</a>
+    <a href="{{ path('electronics_index') }}" class="btn btn-primary">Retour</a>
+{% endblock %}

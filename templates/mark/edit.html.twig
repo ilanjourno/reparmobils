@@ -1,0 +1,14 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edit Mark{% endblock %}
+{% set title = "Modifier une marque" %}
+{% block header %}
+    <div class="row justify-content-end">
+        <a href="{{ path('mark_index') }}" class="btn btn-primary">Retour</a>
+
+        {{ include('mark/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
+{% block body %}
+    {{ include('mark/_form.html.twig', {'button_label': 'Modifier'}) }}
+{% endblock %}

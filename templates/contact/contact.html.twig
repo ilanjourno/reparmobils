@@ -1,0 +1,146 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Contactez nous</h1>
+					<nav class="d-flex align-items-center">
+						<a href="{{url('default')}}">Accueil<span class="lnr lnr-arrow-right"></span></a>
+						<a href="{{url('contact_new')}}">Contact</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Contact Area =================-->
+	<section class="contact_area section_gap_bottom">
+		<div class="container">
+			<div id="mapBox" class="mapBox" data-lat="40.701083" data-lon="-74.1522848" data-zoom="13" data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
+			 data-mlat="40.701083" data-mlon="-74.1522848">
+			</div>
+			{% for message in app.flashes('success')%}
+				<div class="alert alert-success mb-3">
+					{{message}}
+				</div>
+			{% endfor %}
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="contact_info">
+						<div class="info_item">
+							<i class="lnr lnr-home"></i>
+							<h6>California, United States</h6>
+							<p>Santa monica bullevard</p>
+						</div>
+						<div class="info_item">
+							<i class="lnr lnr-phone-handset"></i>
+							<h6 id="phone"></h6>
+							<p>Mon to Fri 9am to 6 pm</p>
+						</div>
+						<div class="info_item">
+							<i class="lnr lnr-envelope"></i>
+							<h6 id="email"></h6>
+							<p>Send us your query anytime!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9">
+					{{include('contact/_form.html.twig')}}
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================Contact Area =================-->
+
+	<!--================Contact Success and Error message Area =================-->
+	<div id="success" class="modal modal-message fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i class="fa fa-close"></i>
+					</button>
+					<h2>Thank you</h2>
+					<p>Your message is successfully sent...</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modals error -->
+
+	<div id="error" class="modal modal-message fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i class="fa fa-close"></i>
+					</button>
+					<h2>Sorry !</h2>
+					<p> Something went wrong </p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================End Contact Success and Error message Area =================-->
+{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" language="javascript">
+<!--
+// Email obfuscator script 2.1 by Tim Williams, University of Arizona
+// Random encryption key feature coded by Andrew Moulden
+// This code is freeware provided these four comment lines remain intact
+// A wizard to generate this code is at http://www.jottings.com/obfuscator/
+{ coded = "rx7u@i47rx.Ql4"
+  key = "5TXbz7oi2D4jEUeCOAcFlrJhL3YSyfkVQNxM1sq0RBnKvdtW8P9ZIaHgu6mpwG"
+  shift=coded.length
+  link=""
+  for (i=0; i<coded.length; i++) {
+    if (key.indexOf(coded.charAt(i))==-1) {
+      ltr = coded.charAt(i)
+      link += (ltr)
+    }
+    else {     
+      ltr = (key.indexOf(coded.charAt(i))-shift+key.length) % key.length
+      link += (key.charAt(ltr))
+    }
+  }
+	const a = document.createElement('a');
+	a.href = "mailto:"+link+"";
+	a.innerHTML = link;
+	document.getElementById('email').append(a)
+}
+//-->
+</script><noscript>Sorry, you need Javascript on to email me.</noscript>
+<script type="text/javascript" language="javascript">
+<!--
+// Email obfuscator script 2.1 by Tim Williams, University of Arizona
+// Random encryption key feature coded by Andrew Moulden
+// This code is freeware provided these four comment lines remain intact
+// A wizard to generate this code is at http://www.jottings.com/obfuscator/
+{ coded = "YoZYox8roB"
+  key = "Nk0xHelpjAniYW5Ra6CIFD4ytOdgVm27ZJLhvqQKrBzsT9GbPX31wEc8USMfuo"
+  shift=coded.length
+  link=""
+  for (i=0; i<coded.length; i++) {
+    if (key.indexOf(coded.charAt(i))==-1) {
+      ltr = coded.charAt(i)
+      link += (ltr)
+    }
+    else {     
+      ltr = (key.indexOf(coded.charAt(i))-shift+key.length) % key.length
+      link += (key.charAt(ltr))
+    }
+  }
+	const a = document.createElement('a');
+	a.href = "#";
+	a.innerHTML = link;
+	document.getElementById('phone').append(a);
+}
+//-->
+</script><noscript>Sorry, you need Javascript on to email me.</noscript>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+
+{% set title = electronic.name %}
+{% block header %}
+    <div class="row justify-content-end">
+        <a href="{{ path('electronic_params_index', {electronic: electronic.id}) }}" class="btn btn-primary">Les paramètres</a>
+        <a href="{{ path('electronics_index') }}" class="btn btn-primary">Retour</a>
+    </div>
+{% endblock %}
+{% block body %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th># :</th>
+                <td>{{ electronic.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom :</th>
+                <td>{{ electronic.name }}</td>
+            </tr>
+            <tr>
+                <th>Créer le :</th>
+                <td>{{ electronic.createdAt ? electronic.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Modifier le :</th>
+                <td>{{ electronic.updatedAt ? electronic.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="col mt-4">
+        <div class="row">
+            <a href="{{ path('electronics_edit', {'id': electronic.id}) }}" class="btn btn-primary">Modifier</a>
+
+            {{ include('admin/electronic/_delete_form.html.twig') }}
+        </div>
+    </div>
+   
+{% endblock %}

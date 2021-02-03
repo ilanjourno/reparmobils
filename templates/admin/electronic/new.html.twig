@@ -1,0 +1,11 @@
+{% extends 'admin/base.html.twig' %}
+{% set title = "Ajouter un nouvel appareil" %}
+
+{% block title %}{{title}}{% endblock %}
+{% set require = true %}
+{% block header %}
+    <a href="{{ path('electronics_index') }}" class="btn btn-primary">Retour</a>
+{% endblock %}
+{% block body %}
+    {{ include('admin/electronic/_form.html.twig') }}
+{% endblock %}

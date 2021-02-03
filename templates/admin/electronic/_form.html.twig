@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {{ form_row(form.mark) }}
+    {{ form_row(form.name) }}
+    <button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}

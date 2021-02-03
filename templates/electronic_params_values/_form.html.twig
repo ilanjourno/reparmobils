@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.nickname, {type: type, label: label|raw}) }}
+    <button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}

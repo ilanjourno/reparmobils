@@ -1,0 +1,17 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <hr>
+    <div class="row">
+        <div class="col d-flex align-items-center form-group">
+            <h4>Photo(s) :</h4>
+            <button type="button" id="addPicture" class="btn btn-info ml-auto">+</button>
+        </div>
+    </div>
+    <div class="row" id="pictures">
+        <div class="col-md-6 form-group">
+            <input type="file" name="product[files][]">
+        </div>
+    </div>
+   
+    <button class="btn btn-success">{{ button_label|default('Ajouter') }}</button>
+{{ form_end(form) }}

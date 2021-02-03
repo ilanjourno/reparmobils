@@ -1,0 +1,34 @@
+App\Entity\Contact:
+  properties:
+      email:
+        - Email: ~
+        - NotBlank: ~
+      name:
+        - Regex: "/^[a-zé¨èA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/"
+        - NotBlank: ~
+      subject: 
+        - NotBlank: ~
+      content:
+        - Length:
+              min: 5
+              max: 150
+        - NotBlank: ~
+App\Entity\User:
+  properties:
+    email:
+      - Email: ~
+      - NotBlank: ~
+    username:
+      - Regex: "/^[a-zé¨èA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/"
+      - NotBlank: ~
+    password:
+      - Length:
+          min: 6
+          max: 4096
+      - NotBlank: ~
+App\Entity\NewsletterEmails:
+  properties:
+    email: 
+      - Email: ~
+      - NotBlank: ~
+

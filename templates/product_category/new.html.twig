@@ -1,0 +1,12 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}New ProductCategory{% endblock %}
+{% set title = "Créer une catégorie" %}
+{% set require = true %}
+{% block header %}
+    <a href="{{ path('product_category_index') }}" class="btn btn-primary">Retour</a>
+{% endblock %}
+{% block body %}
+    {{ include('product_category/_form.html.twig') }}
+{% endblock %}
+

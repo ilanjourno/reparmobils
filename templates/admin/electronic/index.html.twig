@@ -1,0 +1,8 @@
+{% extends 'admin/base.html.twig' %}
+{% set title = "Les appareils" %}
+
+{% block title %}{{title}}{% endblock %}
+{% set table = true %}
+{% block header %}
+    <a href="{{ path('electronics_new') }}" class="btn btn-primary">Ajouter un appareil</a>
+{% endblock %}

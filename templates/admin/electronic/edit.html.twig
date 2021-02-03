@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Edit Phone{% endblock %}
+{% set title = "Modifier un produit sur lequel vendre" %}
+{% block header %}
+    <div class="row justify-content-end">
+        <a href="{{ path('phone_index') }}" class="btn btn-primary">Retour</a>
+
+        {{ include('phone/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
+{% block body %}
+
+    {{ include('admin/phone/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+{% endblock %}

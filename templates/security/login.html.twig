@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+{% set banner = {url: "app_login", title: "Se connecter"} %}
+{% block body %}
+	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="img/login.jpg" alt="">
+						<div class="hover">
+							<h4>Nouveau sur notre site ?</h4>
+							<p></p>
+							<a class="primary-btn" href="{{url('app_register')}}">Créer son compte</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Se connecter pour continuer</h3>
+            {% if error %}
+              <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+            <form class="row login_form" action="{{url('app_login')}}" class="form-signin" method="post">
+            	<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							<div class="col-md-12 form-group">
+                <input type="email" class="form-control" placeholder="Email" required autofocus  value="{{ last_username}}" name="email">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" placeholder="Mot de passe" required name="password">
+							</div>
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									<input type="checkbox" id="customCheck1" name="_remember_me">
+                  <label for="customCheck1">Se souvenir de moi</label>
+								</div>
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Log In</button>
+								<a href="#">Forgot Password?</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+{% endblock %}

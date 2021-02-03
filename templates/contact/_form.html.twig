@@ -1,0 +1,13 @@
+{{ form_start(form, {attr: {class: "row contact_form", novalidate: "novalidate", id: "contactForm"}}) }}
+    <div class="col-md-6">
+        {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.subject) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.content) }}
+    </div>
+    <div class="col-md-12 text-right">
+        <button type="submit" value="submit" class="primary-btn">{{ button_label|default('Envoyer') }}</button>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,16 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier un produit{% endblock %}
+{% set title = "Modifier un produit" %}
+{% block header %}
+    <div class="row justify-content-end">
+        <a href="{{ path('product_index') }}" class="btn btn-primary">Retour</a>
+
+        {{ include('product/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
+{% block body %}
+
+    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}

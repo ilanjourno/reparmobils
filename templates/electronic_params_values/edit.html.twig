@@ -1,0 +1,15 @@
+{% extends 'admin/base.html.twig' %}
+
+{% set title = "Modifier un choix" %}
+{% set type = param.type == 'colors' ?  'color' : 'text' %}
+{% set label = param.type == 'colors' ? 'La couleur : ' ~ '<span class="text-danger">*</span>' : 'Pseudo :'%}
+{% block header %}
+    <div class="row justify-content-end">
+        <a href="{{ path('electronic_params_values_index', {electronic: electronic_id, param: param.id}) }}" class="btn btn-primary">Retour</a>
+
+        {{ include('electronic_params_values/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
+{% block body %}
+    {{ include('electronic_params_values/_form.html.twig', {'button_label': 'Modifier'}) }}
+{% endblock %}
